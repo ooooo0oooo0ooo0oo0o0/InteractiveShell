@@ -48,7 +48,7 @@ function do_operation() {
 #######################################
 
 # 処理一覧ファイルを解析
-echo "Parcing operations...wait"
+echo "Parsing operations...wait"
 parse_operation $DATA_PATH/operations.json
 
 if [ ${#OPERATION_ARRAY[@]} = 0 ]; then
