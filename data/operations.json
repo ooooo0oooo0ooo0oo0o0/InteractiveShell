@@ -1,0 +1,22 @@
+[
+    {
+        "operation" : "Operation_A",
+        "description" : "This is Operation A"
+    },
+    {
+        "operation" : "Operation_B",
+        "description" : "This is Operation B"
+    },
+    {
+        "operation" : "Operation_C",
+        "description" : "This is Operation C"
+    },
+    {
+        "operation" : "Operation_D",
+        "description" : "This is Operation D"
+    },
+    {
+        "operation" : "Operation_E",
+        "description" : "This is Operation E"
+    }
+]
