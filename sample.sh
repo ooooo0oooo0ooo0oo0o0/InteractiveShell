@@ -17,14 +17,14 @@ DESCRIPTION_ARRAY=()
 function parse_operation() {
 
     parser=$BIN_PATH/$JSON_PARSER
-    data_file=`cat ${1}`
+    data_file=`cat $1`
 
-    json_length=`echo ${data_file} | $parser length`
+    json_length=`echo $data_file | $parser length`
 
-    for i in `seq 0 $(expr ${json_length} - 1)`
+    for i in `seq 0 $(expr $json_length - 1)`
     do
-        OPERATION_ARRAY[${#OPERATION_ARRAY[@]}]=`echo ${data_file} | $parser -r .[${i}].operation`
-        DESCRIPTION_ARRAY[${#DESCRIPTION_ARRAY[@]}]=`echo ${data_file} | $parser -r .[${i}].description`
+        OPERATION_ARRAY[${#OPERATION_ARRAY[@]}]=`echo $data_file | $parser -r .[$i].operation`
+        DESCRIPTION_ARRAY[${#DESCRIPTION_ARRAY[@]}]=`echo $data_file | $parser -r .[$i].description`
     done
 }
 
@@ -87,7 +87,7 @@ do
         printf "%s\n" "=================================================="
         read -p "Is this operation right ? [y/N] : " ans
 
-        case "$ans" in
+        case $ans in
           [yY]*)
               break;;
           *)
@@ -107,7 +107,7 @@ do
     #######################################
     read -p "Need to do some more operations ? [y/N] : " ans
 
-    case "$ans" in
+    case $ans in
       [yY]*)
           printf "\n"
           continue;;
@@ -117,5 +117,5 @@ do
 
 done
 
-printf "\n%s" Finished...
+printf "\n%s\n" Bye!
 
