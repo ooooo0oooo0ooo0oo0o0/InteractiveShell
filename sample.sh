@@ -1,9 +1,11 @@
 #!/bin/bash
 
 #######################################
-## 定義部
+## Global variable
 #######################################
 readonly DATA_PATH="./data"
+readonly DATA_FILE="operations.json"
+
 readonly BIN_PATH="./bin"
 readonly JSON_PARSER="jq-win64.exe"
 
@@ -11,15 +13,15 @@ OPERATION_ARRAY=()
 DESCRIPTION_ARRAY=()
 
 #######################################
-## 関数
+## Function
 #######################################
+
 # Json parser
 function parse_operation() {
 
-    parser=$BIN_PATH/$JSON_PARSER
-    data_file=`cat $1`
-
-    json_length=`echo $data_file | $parser length`
+    local parser=$BIN_PATH/$JSON_PARSER
+    local data_file=`cat $1`
+    local json_length=`echo $data_file | $parser length`
 
     for i in `seq 0 $(expr $json_length - 1)`
     do
@@ -28,10 +30,10 @@ function parse_operation() {
     done
 }
 
-# 処理実行関数
+# Do operation
 function do_operation() {
 
-    # TODO : 何か処理を実行
+    # TODO : Do something
     local readonly message="Do something for $1 !"
     local readonly example="Run playbook etc..."
 
@@ -44,27 +46,22 @@ function do_operation() {
 
 
 #######################################
-## Main処理
+## Main Process
 #######################################
 
-# 処理一覧ファイルを解析
+# Parse input data file
 echo "Parsing operations...wait"
-parse_operation $DATA_PATH/operations.json
+parse_operation $DATA_PATH/$DATA_FILE
 
 if [ ${#OPERATION_ARRAY[@]} = 0 ]; then
-    # 0要素の場合はおしまい
+    # Quit program if source data is empty.
     echo "Data couldn't be found..."
     exit 1
 fi
 
-#######################################
-# 処理部
-#######################################
+# Main loop
 while true
 do
-    #######################################
-    # リストから選択させる
-    #######################################
     printf "%s\n" ------------------------
 
     while true
@@ -96,15 +93,9 @@ do
         esac
     done
 
-
-    #######################################
-    # 処理を実行
-    #######################################
     do_operation $operation
 
-    #######################################
-    # 処理を続行するかを確認
-    #######################################
+    # Confirm continue or not.
     read -p "Need to do some more operations ? [y/N] : " ans
 
     case $ans in
